@@ -7,7 +7,7 @@
 To configure ADC channel for interfacing an analog sensor and read the values on the com port 
 ## Components required:
 STM 32 CUBE IDE , STM32 NUCLEO BOARD, CONNECTING CABLE, SERIAL PORT UTILITY , ANALOG SENSOR - 3.3V TYPE 
- ## Theory 
+ ## Theory: 
 
  
 ADCs are characterized by:
@@ -147,7 +147,7 @@ GND pin is a Ground
 This module also includes a potentiometer that will fix the threshold value, & the value can be evaluated by the comparator-LM393. The LED will turn on/off based on the threshold value.
 
 
-##  Program 
+##  Program: 
 
 
  
@@ -161,4 +161,4 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 
 
-****
+
