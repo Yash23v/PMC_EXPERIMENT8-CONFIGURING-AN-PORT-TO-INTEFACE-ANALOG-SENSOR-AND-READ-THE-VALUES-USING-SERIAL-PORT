@@ -1,7 +1,7 @@
 ### Experiment :8 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
-## Name :
-## Roll no :
-## Date of Experiment : 
+## Name : Yash Chhajer V
+## Roll no : 212225040498
+## Date of Experiment : 01-09-26
 
 ## Aim: 
 To configure ADC channel for interfacing an analog sensor and read the values on the com port 
@@ -148,17 +148,46 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 
 ##  Program: 
+```
+#include "main.h"
+#include <stdio.h>
+#include <string.h>
 
+ADC_HandleTypeDef hadc1;
+UART_HandleTypeDef huart2;
 
- 
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_USART2_UART_Init(void);
+
+char msg[50];
+uint16_t readvalue;
+
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_USART2_UART_Init();
+
+  while (1)
+  {
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+    readvalue = HAL_ADC_GetValue(&hadc1);
+    uint32_t v_int = (readvalue * 330) / 4095; 
+    sprintf(msg, "ADC: %hu | Voltage: %lu.%02lu V\r\n", readvalue, v_int / 100, v_int % 100);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 10000);
+    HAL_Delay(1000);
+  }
+}
+```
+## Output  :
+<img width="3072" height="4096" alt="ADC_SetUp" src="https://github.com/user-attachments/assets/e17ce5da-05cf-4ac0-9384-24b0519daeaf" />
+<img width="1001" height="842" alt="Moisture" src="https://github.com/user-attachments/assets/4c649d54-8156-433a-8578-2379a3a22e83" />
 
 ## Result :
- 
-## Output  :
-
-
-
-
-
-
-
+The ADC successfully reads the analog input value from the STM32 board and transmits the converted digital value through UART at 115200 baud rate. The values are displayed continuously in the serial terminal.
